@@ -238,6 +238,39 @@ flowchart TD
 Create an algorithm and flowchart to input length and width, calculate
 the area (**Area = Length × Width**), and display the result.
 
+```Text
+START
+    INPUT Length
+    INPUT Width
+    If Length is a number AND Width is a number AND Length > 0 AND Width > 0 Then
+        Area = Length * Width
+        OUTPUT Area
+    Else
+        OUTPUT "Please input numbers larger than 0"
+    END If
+END
+```
+```mermaid
+flowchart TB
+    Start(["START"]) --> InputLength["INPUT Length"]
+    InputLength --> InputWidth["INPUT Width"]
+    InputWidth --> CheckCondition{"Length and Width is a number larger than 0?"}
+    CheckCondition -- True --> Calculate["Area = Length × Width"]
+    Calculate --> OutputArea["OUTPUT Area"]
+    OutputArea --> End(["END"])
+    CheckCondition -- False --> OutputError@{ label: "OUTPUT 'Please input<br>numbers larger than 0'" }
+    OutputError --> End
+
+    OutputError@{ shape: rect}
+     Start:::startEnd
+     InputLength:::input
+     InputWidth:::input
+     CheckCondition:::decision
+     Calculate:::process
+     OutputArea:::output
+     End:::startEnd
+     OutputError:::output
+```
 ---
 
 ## 8. Determine Pass or Fail
@@ -245,6 +278,59 @@ the area (**Area = Length × Width**), and display the result.
 Write the algorithm and draw the flowchart for a program that takes a
 student's average marks and displays **"Pass"** if average ≥ 50,
 otherwise **"Fail"**.
+
+```text
+START
+    Total = 0
+    INPUT Subjects
+    IF Subjects is a number AND > 0 Then
+        For i = 1 TO Subjects
+        REPEAT
+            INPUT Mark
+            If Mark is a number and > 0 AND Mark <= 100 Then
+                Total = Total + Mark
+                Valid = TRUE
+            Else
+                OUTPUT "Please use a value between 0 to 100"
+                Valid = FALSE
+            End If
+        UNTIL Valid = TRUE
+    Else
+        OUTPUT "Please use numbers greater than 0"
+
+    Average = Total / Subjects
+    If Average >= 50 Then
+        Output "Pass"
+    Else
+        OUTPUT "Fail"
+END
+```
+```mermaid
+flowchart TD
+    Start([START]) --> InitTotal[Total = 0]
+    InitTotal --> InputSubjects[INPUT Subjects]
+    InputSubjects --> CheckSubjects{Subjects is a number<br/>AND > 0?}
+    CheckSubjects -->|No| ErrorSubjects[OUTPUT Please use numbers greater than 0]
+    ErrorSubjects --> End1([END])
+    CheckSubjects -->|Yes| ForLoop[For i = 1 TO Subjects]
+    ForLoop --> InputMark[INPUT Mark]
+    InputMark --> CheckMark{Mark is a number<br/>AND > 0<br/>AND Mark <= 100?}
+    CheckMark -->|Yes| AddTotal[Total = Total + Mark]
+    AddTotal --> SetValidTrue[Valid = TRUE]
+    SetValidTrue --> CheckValid{Valid = TRUE?}
+    CheckMark -->|No| ErrorMark[OUTPUT Please use a value<br/>between 0 to 100]
+    ErrorMark --> SetValidFalse[Valid = FALSE]
+    SetValidFalse --> CheckValid
+    CheckValid -->|No| InputMark
+    CheckValid -->|Yes| NextIteration{More subjects<br/>to process?}
+    NextIteration -->|Yes| InputMark
+    NextIteration -->|No| CalcAverage[Average = Total / Subjects]
+    CalcAverage --> CheckAverage{Average >= 50?}
+    CheckAverage -->|Yes| OutputPass[OUTPUT Pass]
+    CheckAverage -->|No| OutputFail[OUTPUT Fail]
+    OutputPass --> End2([END])
+    OutputFail --> End2
+```
 
 ---
 
