@@ -109,6 +109,50 @@ flowchart TB
 Write the algorithm and flowchart to input a number and display whether
 it is positive, negative, or zero.
 
+```text
+START
+    Input NumberCheck
+    If NumberCheck is number Then
+        If NumberCheck = 0 Then
+            OUTPUT "Number is 0"
+        Else If NumberCheck > 0
+                OUTPUT "Number is positive"
+        Else
+                OUTPUT "Number is negative
+    Else
+        OUTPUT "Please input a Number"
+END
+
+```
+```mermaid
+flowchart TD
+    Start([START])
+    Input[Input NumberCheck]
+    IsNumber{Is NumberCheck<br/>a number?}
+    IsZero{NumberCheck = 0?}
+    IsPositive{NumberCheck > 0?}
+    OutputZero[OUTPUT 'Number is 0']
+    OutputPositive[OUTPUT 'Number is positive']
+    OutputNegative[OUTPUT 'Number is negative']
+    OutputInvalid[OUTPUT 'Please input a Number']
+    End([END])
+    
+    Start --> Input
+    Input --> IsNumber
+    IsNumber -->|Yes| IsZero
+    IsNumber -->|No| OutputInvalid
+    IsZero -->|Yes| OutputZero
+    IsZero -->|No| IsPositive
+    IsPositive -->|Yes| OutputPositive
+    IsPositive -->|No| OutputNegative
+    OutputZero --> End
+    OutputPositive --> End
+    OutputNegative --> End
+    OutputInvalid --> End
+
+    
+
+```
 ---
 
 ## 5. Simple Interest Calculator
@@ -122,12 +166,70 @@ interest using the formula:
 - **R = Rate of Interest** → percentage per year
 - **T = Time** → number of years
 
+```text
+START
+    INPUT P
+    INPUT R
+    INPUT T
+    IF P AND R AND T is a number Then
+        SI = (P * R * T) / 100
+        OUTPUT SI
+    Else 
+        OUTPUT "Only use numeric values"
+END
+```
+```mermaid
+flowchart TD
+    START([START])
+    inputP[INPUT P]
+    inputR[INPUT R]
+    inputT[INPUT T]
+    checkCondition{P AND R AND T<br/>is a number?}
+    calculate[SI = P * R * T / 100]
+    outputSI[OUTPUT SI]
+    outputError[OUTPUT Only use numeric values]
+    END1([END])
+    
+    START --> inputP
+    inputP --> inputR
+    inputR --> inputT
+    inputT --> checkCondition
+    checkCondition -->|Yes| calculate
+    calculate --> outputSI
+    outputSI --> END1
+    checkCondition -->|No| outputError
+    outputError --> END1
+```
 ---
 
 ## 6. Average Temperature Calculation
 
 Write the algorithm and draw the flowchart for a program that takes the
 temperature of 7 days, finds the average temperature, and displays it.
+
+```text
+START
+    Total = 0
+    For i = 1 to 7
+        INPUT temp
+        Total = Total + temp
+    END For
+    Average = Total / 7
+    OUTPUT Average
+END
+```
+```mermaid
+flowchart TD
+    Start([Start]) --> Total[Total = 0]
+    Total --> ForInit["For i = 1 to 7"]
+    ForInit --> Input["INPUT temp"]
+    Input --> AddTotal["Total = Total + temp"]
+    AddTotal --> ForCheck{"i = 7?"}
+    ForCheck -->|No| Input
+    ForCheck -->|Yes| Average["Average = Total / 7"]
+    Average --> Output["OUTPUT Average"]
+    Output --> End([End])
+```
 
 ---
 
