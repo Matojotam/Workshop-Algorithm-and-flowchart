@@ -56,16 +56,27 @@ END
 ```
 ```mermaid
 flowchart TB
-    Start(["START"]) --> InputMath["INPUT math"]
-    InputMath --> InputEnglish["INPUT english"]
-    InputEnglish --> InputSwedish["INPUT swedish"]
+
+    Start(["START"]) --> InputMath[/INPUT math/]
+
+    InputMath --> InputEnglish[/INPUT english/]
+
+    InputEnglish --> InputSwedish[/INPUT swedish/]
+
     InputSwedish --> CalcTotal["total = math + english + swedish"]
+
     CalcTotal --> CheckNumber{"is total a number?"}
-    CheckNumber -- yes --> CalcAverage["average = total / 3"]
-    CalcAverage --> OutputTotal["OUTPUT total"]
-    OutputTotal --> OutputAverage["OUTPUT average"]
+
+    CheckNumber -->|yes| CalcAverage["average = total / 3"]
+
+    CalcAverage --> OutputTotal[/OUTPUT total/]
+
+    OutputTotal --> OutputAverage[/OUTPUT average/]
+
     OutputAverage --> End(["END"])
-    CheckNumber -- no --> OutputError["OUTPUT Please use numbers"]
+
+    CheckNumber -->|no| OutputError[/OUTPUT "Please use numbers"/]
+
     OutputError --> End
 ```
 
@@ -90,16 +101,25 @@ END
 ```
 ```mermaid
 flowchart TB
-    START(["START"]) --> INPUT["Input: MultiNumber"]
+
+    START(["START"]) --> INPUT[/INPUT: MultiNumber/]
+
     INPUT --> CHECK{"MultiNumber = number?"}
-    CHECK -- Yes --> LOOP["for i = 1 to 10"]
+
+    CHECK -->|Yes| LOOP["For i = 1 to 10"]
+
     LOOP --> CALC["Result = MultiNumber * i"]
-    CALC --> OUTPUT1["OUTPUT Result"]
-    CHECK -- No --> OUTPUT2@{ label: "OUTPUT 'Please use numbers'" }
-    OUTPUT2 --> END(["END"])
-    OUTPUT1 --> n1["is i &lt; 10?"]
-    n1 -- Yes --> LOOP
-    n1 -- No --> END
+
+    CALC --> OUTPUT1[/OUTPUT Result/]
+
+    OUTPUT1 --> CHECKLOOP{"i < 10?"}
+
+    CHECKLOOP -->|Yes| LOOP
+    CHECKLOOP -->|No| END(["END"])
+
+    CHECK -->|No| OUTPUT2[/OUTPUT "Please use numbers"/]
+
+    OUTPUT2 --> END
 ```
 
 ---
@@ -126,30 +146,43 @@ END
 ```
 ```mermaid
 flowchart TD
-    Start([START])
-    Input[Input NumberCheck]
-    IsNumber{Is NumberCheck<br/>a number?}
-    IsZero{NumberCheck = 0?}
-    IsPositive{NumberCheck > 0?}
-    OutputZero[OUTPUT 'Number is 0']
-    OutputPositive[OUTPUT 'Number is positive']
-    OutputNegative[OUTPUT 'Number is negative']
-    OutputInvalid[OUTPUT 'Please input a Number']
-    End([END])
-    
+
+    Start(["START"])
+
+    Input[/INPUT NumberCheck/]
+
+    IsNumber{"Is NumberCheck a number?"}
+
+    IsZero{"NumberCheck = 0?"}
+
+    IsPositive{"NumberCheck > 0?"}
+
+    OutputZero[/OUTPUT "Number is 0"/]
+
+    OutputPositive[/OUTPUT "Number is positive"/]
+
+    OutputNegative[/OUTPUT "Number is negative"/]
+
+    OutputInvalid[/OUTPUT "Please input a Number"/]
+
+    End(["END"])
+
     Start --> Input
     Input --> IsNumber
+
     IsNumber -->|Yes| IsZero
     IsNumber -->|No| OutputInvalid
+
     IsZero -->|Yes| OutputZero
     IsZero -->|No| IsPositive
+
     IsPositive -->|Yes| OutputPositive
     IsPositive -->|No| OutputNegative
+
     OutputZero --> End
     OutputPositive --> End
     OutputNegative --> End
     OutputInvalid --> End
-
     
 
 ```
@@ -180,23 +213,32 @@ END
 ```
 ```mermaid
 flowchart TD
-    START([START])
-    inputP[INPUT P]
-    inputR[INPUT R]
-    inputT[INPUT T]
-    checkCondition{P AND R AND T<br/>is a number?}
-    calculate[SI = P * R * T / 100]
-    outputSI[OUTPUT SI]
-    outputError[OUTPUT Only use numeric values]
-    END1([END])
-    
+
+    START(["START"])
+
+    inputP[/INPUT P/]
+    inputR[/INPUT R/]
+    inputT[/INPUT T/]
+
+    checkCondition{"P AND R AND T<br/>are numbers?"}
+
+    calculate["SI = (P * R * T) / 100"]
+
+    outputSI[/OUTPUT SI/]
+
+    outputError[/OUTPUT "Only use numeric values"/]
+
+    END1(["END"])
+
     START --> inputP
     inputP --> inputR
     inputR --> inputT
     inputT --> checkCondition
+
     checkCondition -->|Yes| calculate
     calculate --> outputSI
     outputSI --> END1
+
     checkCondition -->|No| outputError
     outputError --> END1
 ```
@@ -220,15 +262,24 @@ END
 ```
 ```mermaid
 flowchart TD
-    Start([Start]) --> Total[Total = 0]
+
+    Start(["START"]) --> Total["Total = 0"]
+
     Total --> ForInit["For i = 1 to 7"]
-    ForInit --> Input["INPUT temp"]
+
+    ForInit --> Input[/INPUT temp/]
+
     Input --> AddTotal["Total = Total + temp"]
+
     AddTotal --> ForCheck{"i = 7?"}
+
     ForCheck -->|No| Input
+
     ForCheck -->|Yes| Average["Average = Total / 7"]
-    Average --> Output["OUTPUT Average"]
-    Output --> End([End])
+
+    Average --> Output[/OUTPUT Average/]
+
+    Output --> End(["END"])
 ```
 
 ---
@@ -252,24 +303,22 @@ END
 ```
 ```mermaid
 flowchart TB
-    Start(["START"]) --> InputLength["INPUT Length"]
-    InputLength --> InputWidth["INPUT Width"]
-    InputWidth --> CheckCondition{"Length and Width is a number larger than 0?"}
-    CheckCondition -- True --> Calculate["Area = Length × Width"]
-    Calculate --> OutputArea["OUTPUT Area"]
-    OutputArea --> End(["END"])
-    CheckCondition -- False --> OutputError@{ label: "OUTPUT 'Please input<br>numbers larger than 0'" }
-    OutputError --> End
 
-    OutputError@{ shape: rect}
-     Start:::startEnd
-     InputLength:::input
-     InputWidth:::input
-     CheckCondition:::decision
-     Calculate:::process
-     OutputArea:::output
-     End:::startEnd
-     OutputError:::output
+    Start(["START"]) --> InputLength[/INPUT Length/]
+
+    InputLength --> InputWidth[/INPUT Width/]
+
+    InputWidth --> CheckCondition{"Length and Width<br/>are numbers AND > 0?"}
+
+    CheckCondition -->|Yes| Calculate["Area = Length * Width"]
+
+    Calculate --> OutputArea[/OUTPUT Area/]
+
+    OutputArea --> End(["END"])
+
+    CheckCondition -->|No| OutputError[/OUTPUT "Please input<br/>numbers larger than 0"/]
+
+    OutputError --> End
 ```
 ---
 
@@ -307,28 +356,45 @@ END
 ```
 ```mermaid
 flowchart TD
-    Start([START]) --> InitTotal[Total = 0]
-    InitTotal --> InputSubjects[INPUT Subjects]
-    InputSubjects --> CheckSubjects{Subjects is a number<br/>AND > 0?}
-    CheckSubjects -->|No| ErrorSubjects[OUTPUT Please use numbers greater than 0]
-    ErrorSubjects --> End1([END])
-    CheckSubjects -->|Yes| ForLoop[For i = 1 TO Subjects]
-    ForLoop --> InputMark[INPUT Mark]
-    InputMark --> CheckMark{Mark is a number<br/>AND > 0<br/>AND Mark <= 100?}
-    CheckMark -->|Yes| AddTotal[Total = Total + Mark]
-    AddTotal --> SetValidTrue[Valid = TRUE]
-    SetValidTrue --> CheckValid{Valid = TRUE?}
-    CheckMark -->|No| ErrorMark[OUTPUT Please use a value<br/>between 0 to 100]
-    ErrorMark --> SetValidFalse[Valid = FALSE]
-    SetValidFalse --> CheckValid
-    CheckValid -->|No| InputMark
-    CheckValid -->|Yes| NextIteration{More subjects<br/>to process?}
+
+    Start(["START"]) --> InitTotal["Total = 0"]
+
+    InitTotal --> InputSubjects[/INPUT Subjects/]
+
+    InputSubjects --> CheckSubjects{"Subjects is a number<br/>AND > 0?"}
+
+    CheckSubjects -->|No| ErrorSubjects[/OUTPUT "Please use numbers greater than 0"/]
+
+    ErrorSubjects --> End1(["END"])
+
+    CheckSubjects -->|Yes| ForLoop["For i = 1 TO Subjects"]
+
+    ForLoop --> InputMark[/INPUT Mark/]
+
+    InputMark --> CheckMark{"Mark is a number<br/>AND > 0<br/>AND Mark <= 100?"}
+
+    CheckMark -->|Yes| AddTotal["Total = Total + Mark"]
+
+    AddTotal --> SetValidTrue["Valid = TRUE"]
+
+    SetValidTrue --> NextIteration{"More subjects<br/>to process?"}
+
+    CheckMark -->|No| ErrorMark[/OUTPUT "Please use a value<br/>between 1 to 100"/]
+
+    ErrorMark --> InputMark
+
     NextIteration -->|Yes| InputMark
-    NextIteration -->|No| CalcAverage[Average = Total / Subjects]
-    CalcAverage --> CheckAverage{Average >= 50?}
-    CheckAverage -->|Yes| OutputPass[OUTPUT Pass]
-    CheckAverage -->|No| OutputFail[OUTPUT Fail]
-    OutputPass --> End2([END])
+
+    NextIteration -->|No| CalcAverage["Average = Total / Subjects"]
+
+    CalcAverage --> CheckAverage{"Average >= 50?"}
+
+    CheckAverage -->|Yes| OutputPass[/OUTPUT "Pass"/]
+
+    CheckAverage -->|No| OutputFail[/OUTPUT "Fail"/]
+
+    OutputPass --> End2(["END"])
+
     OutputFail --> End2
 ```
 
@@ -338,6 +404,47 @@ flowchart TD
 
 Write the algorithm and draw the flowchart that input a number and
 calculate its factorial using a loop.
+```text
+START
+    
+    INPUT FactNum
+
+    Factorial = 1
+        If FactNum is a number Then
+            For i = 1 to FactNum
+                Factorial = Factorial * i
+            END For
+        Else
+            OUTPUT "Please use a number"
+        END If
+    OUTPUT Factorial
+END
+```
+```mermaid
+flowchart TD
+
+    Start(["START"]) --> Input[/INPUT FactNum/]
+
+    Input --> CheckType{"FactNum is<br/>a number?"}
+
+    CheckType -->|Yes| InitFact["Factorial = 1"]
+
+    CheckType -->|No| ErrorMsg[/OUTPUT "Please use a number"/]
+
+    InitFact --> ForLoop{"i <= FactNum?"}
+
+    ForLoop -->|Yes| Multiply["Factorial = Factorial * i"]
+
+    Multiply --> Increment["i = i + 1"]
+
+    Increment --> ForLoop
+
+    ForLoop -->|No| Output[/OUTPUT Factorial/]
+
+    ErrorMsg --> End(["END"])
+
+    Output --> End
+```
 
 ---
 
@@ -346,6 +453,46 @@ calculate its factorial using a loop.
 Write the algorithm and draw the flowchart for a program that inputs the
 purchase amount and gives a **10% discount** if the amount is greater
 than 1000.
+
+```text
+START
+    INPUT Total
+    If Total is a number Then
+        If Total is >= 1000 Then
+            Total = Total * 0.9
+        Else
+            Total = Total
+        End If
+    Else
+        OUTPUT = "Please input a number"
+    END If
+    OUTPUT Total
+
+END
+```
+```mermaid
+flowchart TB
+
+    Start(["START"]) --> InputTotal[/INPUT Total/]
+
+    InputTotal --> CheckNumber{"Total is a number?"}
+
+    CheckNumber -->|Yes| CheckAmount{"Total >= 1000?"}
+
+    CheckAmount -->|Yes| Discount["Total = Total * 0.9"]
+
+    CheckAmount -->|No| NoChange["Total = Total"]
+
+    Discount --> OutputTotal[/OUTPUT Total/]
+
+    NoChange --> OutputTotal
+
+    OutputTotal --> End(["END"])
+
+    CheckNumber -->|No| OutputError[/OUTPUT "Please input a number"/]
+
+    OutputError --> End
+```
 
 ---
 
